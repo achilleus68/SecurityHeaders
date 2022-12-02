@@ -1,4 +1,0 @@
-File automatically created from SVN or Git repository.
-
-URL: https://github.com/achilleus68/piwigo_failed_logins 
-Revision: e75b5cf32001eb03ee17729e36f0d11adc59b654 (Sun Nov 27 15:56:19 2022 +0100)
