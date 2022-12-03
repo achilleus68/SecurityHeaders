@@ -5,14 +5,14 @@ global $template, $conf;
 // save config
 if (isset($_POST['submitButton']))
 {
-  $conf['cors'] = array(
+  $conf['Security-Headers'] = array(
     'x-frame-options' => $_POST['x-frame-options'],
     'referrer-policy' => $_POST['referrer-policy'],
     'x-content-type-options' => $_POST['x-content-type-options'],
     'permissions-policy' => $_POST['permissions-policy'],
   );
 
-  conf_update_param('cors', $conf['cors']);
+  conf_update_param('Security-Headers', $conf['Security-Headers']);
   $page['infos'][] = l10n('Information data registered in database');
 }
 
@@ -34,11 +34,15 @@ $xcontenttype_options = array(
 );
 
 // Add our template to the global template
-$template->set_filenames(array('plugin_admin_content' => dirname(__FILE__).'/admin.tpl'));
+$template->set_filenames(array('plugin_admin_content' => dirname(__FILE__).'/template/admin.tpl'));
+
+if (!isset($conf['Security-Headers'])) {
+    $conf['Security-Headers']='';
+}
 
 // send config to template
 $template->assign(array(
-  'cors'=> $conf['cors'],
+  'SecurityHeaders'=> is_array($conf['Security-Headers'])?$conf['Security-Headers']:unserialize($conf['Security-Headers']),
   'xframe_options' => $xframe_options,
   'referrer_options' => $referrer_options,
   'xcontenttype_options' => $xcontenttype_options

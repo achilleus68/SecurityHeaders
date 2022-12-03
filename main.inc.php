@@ -19,20 +19,24 @@ define('CORS_ADMIN',get_root_url().'admin.php?page=plugin-'.CORS_ID);
 */
 
 global $template, $headers, $conf;
-$cors= unserialize($conf['CORS']);
-//var_dump($cors);
+if (isset($conf['Security-Headers'])) {
+    $SecurityHeaders=unserialize($conf['Security-Headers']);
+}
+else {
+    $SecurityHeaders='';
+}
+//var_dump($SecurityHeaders);
 
-if (is_array($cors)) {
-  foreach ($cors as $header => $value) {
+if (is_array($SecurityHeaders)) {
+  foreach ($SecurityHeaders as $header => $value) {
     if(strlen($value)){
       header("$header:$value");
     }
   }
 }
-//header('Referrer-Policy:same-origin');
-//die();
+
 // Hook on to an event to show the administration page.
-add_event_handler('get_admin_plugin_menu_links', 'FAILED_LOGINS_admin_menu');
+add_event_handler('get_admin_plugin_menu_links', 'CORS_admin_menu');
 
 // Add an entry to the 'Plugins' menu.
 function CORS_admin_menu($menu) {

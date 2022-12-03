@@ -21,7 +21,7 @@ target="_blank">Mozilla Websecurity</a></p>
 </span>
 <label>
     <b>{'Select'|translate}</b>
-    {html_options name="x-frame-options" options=$xframe_options selected=$cors['x-frame-options']|default:''}
+    {html_options name="x-frame-options" options=$xframe_options selected=$SecurityHeaders['x-frame-options']|default:''}
 </label>
 <br /><br />
 <span class="property" style="text-align:left;">
@@ -29,7 +29,7 @@ target="_blank">Mozilla Websecurity</a></p>
 </span>
 <label>
     <b>{'Select'|translate}</b>
-    {html_options name="referrer-policy" options=$referrer_options selected=$cors['referrer-policy']|default:''}
+    {html_options name="referrer-policy" options=$referrer_options selected=$SecurityHeaders['referrer-policy']|default:''}
 </label>
 <br /><br />
 
@@ -38,7 +38,7 @@ target="_blank">Mozilla Websecurity</a></p>
 </span>
 <label>
     <b>{'Select'|translate}</b>
-    {html_options name="x-content-type-options" options=$xcontenttype_options selected=$cors['x-content-type-options']|default:''}
+    {html_options name="x-content-type-options" options=$xcontenttype_options selected=$SecurityHeaders['x-content-type-options']|default:''}
 </label>
 
 <br /><br />
@@ -48,7 +48,7 @@ target="_blank">Mozilla Websecurity</a></p>
 </span>
 
 <label>
-    <input type="text" name="permissions-policy" width="200" style="width:75%;" id="feature-policy" value="{$cors['permissions-policy']|default:"accelerometer=(self), 
+    <input type="text" name="permissions-policy" width="200" style="width:75%;" id="feature-policy" value="{$SecurityHeaders['permissions-policy']|default:"accelerometer=(self), 
 ambient-light-sensor=(self), autoplay=(self), battery=(self), camera=(self), cross-origin-isolated=(self), display-capture=(self), document-domain=(self), 
 encrypted-media=(self), execution-while-not-rendered=(self), execution-while-out-of-viewport=(self), fullscreen=(self), geolocation=(self), gyroscope=(self), 
 keyboard-map=(self), magnetometer=(self), microphone=(self), midi=(self), navigation-override=(self), payment=(self), picture-in-picture=(self), 
