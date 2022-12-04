@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: Cors
+Plugin Name: Security Headers
 Version: 1.0.0
-Description: Write CORS headers for security.
+Description: Set security headers for security.
 Plugin URI: 
 Author: Achilleus
 Has Settings: true
@@ -19,20 +19,45 @@ define('CORS_ADMIN',get_root_url().'admin.php?page=plugin-'.CORS_ID);
 */
 
 global $template, $headers, $conf;
+
 if (isset($conf['Security-Headers'])) {
     $SecurityHeaders=unserialize($conf['Security-Headers']);
 }
 else {
     $SecurityHeaders='';
 }
-//var_dump($SecurityHeaders);
-
+//header('X-Powered-By:');
 if (is_array($SecurityHeaders)) {
-  foreach ($SecurityHeaders as $header => $value) {
-    if(strlen($value)){
-      header("$header:$value");
+  foreach ($SecurityHeaders as $element => $content) {
+     
+    switch($element) {
+        case 'content-security':
+            $cs='';
+            foreach ($content as $header => $value) {
+                $cs .= "{$header} '{$value}';";
+            }
+            header("content-security-policy:{$cs}");
+            break;
+        case 'permissions-policy':
+            $pp='';
+            foreach ($content as $header => $value) {
+                if(strlen($pp)) {
+                    $pp .= ',';
+                }
+                $pp .= "{$header}=({$value})";
+            }
+            header("permissions-policy:{$pp}");
+            break;
+        default:
+            foreach ($content as $header => $value) {
+                if(strlen($value)){
+                    header("$header:$value");
+                }
+            }
+            break;
     }
   }
+
 }
 
 // Hook on to an event to show the administration page.

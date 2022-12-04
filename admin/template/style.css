@@ -1,0 +1,4 @@
+span.property { width: 25% !important; }
+span.radiohead { display: inline-block;min-width: 200px; }
+span ~ label { display:inline-block; min-width:96px;}
+

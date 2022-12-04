@@ -1,53 +1,43 @@
 <?php
 if (!defined('CORS_PATH')) die('Hacking attempt!');
-global $template, $conf;
 
-// save config
-if (isset($_POST['submitButton']))
+/* Basic checks */
+check_status(ACCESS_ADMINISTRATOR);
+
+global $template, $page, $conf;
+
+// get current tab
+$page['tab'] = isset($_GET['tab']) ? $_GET['tab'] : $page['tab'] = 'general';
+
+// plugin tabsheet is not present on photo page
+if ($page['tab'] != 'photo')
 {
-  $conf['Security-Headers'] = array(
-    'x-frame-options' => $_POST['x-frame-options'],
-    'referrer-policy' => $_POST['referrer-policy'],
-    'x-content-type-options' => $_POST['x-content-type-options'],
-    'permissions-policy' => $_POST['permissions-policy'],
-  );
+  // tabsheet
+  include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
+  $tabsheet = new tabsheet();
+  $tabsheet->set_id('CORS');
 
-  conf_update_param('Security-Headers', $conf['Security-Headers']);
-  $page['infos'][] = l10n('Information data registered in database');
+  $tabsheet->add('general', l10n('General'), CORS_ADMIN . '-general');
+  $tabsheet->add('permissions-policy', l10n('Permissions Policy'), CORS_ADMIN . '-permissions-policy');
+  //$tabsheet->add('content-security', l10n('Content-Security Policy'), CORS_ADMIN . '-content-security');
+
+  $tabsheet->select($page['tab']);
+  $tabsheet->assign();
 }
 
-$xframe_options = array(
-  '' => 'Geen',
-  'sameorigin' => 'Same-Origin',
-  'deny' => 'Deny'
-);
 
-$referrer_options = array(
-  '' => 'Geen',
-  'no-referrer' => 'no-referrer',
-  'same-origin' => 'Same-Origin'
-);
-
-$xcontenttype_options = array(
-  '' => 'Geen',
-  'nosniff' => 'nosniff',
-);
-
-// Add our template to the global template
-$template->set_filenames(array('plugin_admin_content' => dirname(__FILE__).'/template/admin.tpl'));
-
-if (!isset($conf['Security-Headers'])) {
-    $conf['Security-Headers']='';
-}
+// include page
+include(CORS_PATH . 'admin/' . $page['tab'] . '.php');
 
 // send config to template
 $template->assign(array(
-  'SecurityHeaders'=> is_array($conf['Security-Headers'])?$conf['Security-Headers']:unserialize($conf['Security-Headers']),
-  'xframe_options' => $xframe_options,
-  'referrer_options' => $referrer_options,
-  'xcontenttype_options' => $xcontenttype_options
+  'CORS_PATH'=> CORS_PATH, // used for images, scripts, ... access
+  'CORS_ABS_PATH'=> realpath(CORS_PATH), // used for template inclusion (Smarty needs a real path)
+  'CORS_ADMIN' => CORS_ADMIN
 ));
 
-// Assign the template contents to ADMIN_CONTENT
-$template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
+// send page content
+$template->assign_var_from_handle('ADMIN_CONTENT', 'cors_content');
+
+
 ?>
