@@ -4,3 +4,5 @@ Upgrade the Security of your site to A level.
 
 Content-Security-Policy is tricky, because of (possible) inline CSS and JS in Piwigo or its plugins, which can break if CSP is set wrongly
  
+### Contributors
+Config for strict-transport-security directive added by @Vodkapic
