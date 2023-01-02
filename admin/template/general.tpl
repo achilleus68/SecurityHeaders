@@ -39,6 +39,15 @@ target="_blank">OWASP Secure Headers Project</a></p>
 
 <br /><br />
 
+<span class="property" style="text-align:left;">
+  <label for="strict-transport-security">{'Strict-Transport-Security'|@translate}</label>
+</span>
+<label>
+    {html_options name="strict-transport-security" options=$stricttransportsecurity selected=$SecurityHeaders['strict-transport-security']|default:''}
+</label>
+
+<br /><br />
+
   <input class="submit" type="submit" name="submitButton" value="{'Submit'|@translate}">
   <input class="submit" type="reset" name="resetButton" value="{'Reset'|@translate}">
   </fieldset>

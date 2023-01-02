@@ -17,7 +17,8 @@ if (isset($_POST['submitButton']))
   $conf['Security-Headers']['General'] = array(
     'x-frame-options' => $_POST['x-frame-options'],
     'referrer-policy' => $_POST['referrer-policy'],
-    'x-content-type-options' => $_POST['x-content-type-options']
+    'x-content-type-options' => $_POST['x-content-type-options'],
+	'strict-transport-security' => $_POST['strict-transport-security']
   );
 
   conf_update_param('Security-Headers', $conf['Security-Headers']);
@@ -41,6 +42,11 @@ $xcontenttype_options = array(
   'nosniff' => 'nosniff',
 );
 
+$stricttransportsecurity = array(
+  '' => 'Geen',
+  'max-age=31536000' => 'max-age=31536000'
+);
+
 if (!isset($conf['Security-Headers'])) {
     $conf['Security-Headers']='';
 }
@@ -50,7 +56,8 @@ $template->assign(array(
   'SecurityHeaders'=> is_array($conf['Security-Headers']['General'])?$conf['Security-Headers']['General']:unserialize($conf['Security-Headers']),
   'xframe_options' => $xframe_options,
   'referrer_options' => $referrer_options,
-  'xcontenttype_options' => $xcontenttype_options
+  'xcontenttype_options' => $xcontenttype_options,
+  'stricttransportsecurity' => $stricttransportsecurity,
 ));
 
 // define template file
