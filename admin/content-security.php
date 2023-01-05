@@ -27,7 +27,7 @@ if (!isset($conf['Security-Headers'])) {
 }
 
 $options = array(
-  '' => '&nbsp;None',
+  '' => '&nbsp;' . l10n('None'),
   'self' => '&nbsp;Self'
 );
 

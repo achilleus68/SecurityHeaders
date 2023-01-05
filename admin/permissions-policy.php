@@ -42,7 +42,7 @@ if (!isset($conf['Security-Headers'])) {
 // based on https://really-simple-ssl.com/how-to-use-the-permissions-policy-header/
 
 $options = array(
-  'none' => '&nbsp;None',
+  'none' => '&nbsp;' . l10n('None'),
   '*' => '&nbsp;All',
   'self' => '&nbsp;Self'
 );

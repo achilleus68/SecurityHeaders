@@ -26,24 +26,24 @@ if (isset($_POST['submitButton']))
 }
 
 $xframe_options = array(
-  '' => 'Geen',
+  '' => l10n('None'),
   'sameorigin' => 'Same-Origin',
   'deny' => 'Deny'
 );
 
 $referrer_options = array(
-  '' => 'Geen',
+  '' => l10n('None'),
   'no-referrer' => 'no-referrer',
   'same-origin' => 'Same-Origin'
 );
 
 $xcontenttype_options = array(
-  '' => 'Geen',
+  '' => l10n('None'),
   'nosniff' => 'nosniff',
 );
 
 $stricttransportsecurity = array(
-  '' => 'Geen',
+  '' => l10n('None'),
   'max-age=31536000' => 'max-age=31536000'
 );
 
